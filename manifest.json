@@ -1,0 +1,16 @@
+{
+  "name": "KARAA KARRAA",
+  "short_name": "Karra",
+  "description": "Karaa keerra deemii Karra keetti Seeni!",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#4B1F01",
+  "theme_color": "#2D1301",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
