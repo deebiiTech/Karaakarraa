@@ -715,36 +715,77 @@ Waan kutannoo isaaniin  hojjetanii itti milkaa'aauus dandaa'aniiru.</p>
 	7. Namni kaayyoo malee deemuuf qilleensi tokkumadha.<br>
 	8. Dhiibbaan namoota injifachuuf taphatan cimoo taasisa. Warra akka hin injifatamneef taphatan immoo anniisaa duraa fixa.</p></h3><br>
 
-            { 
-                title: "Wabiiwwan", 
-                content: `<h2>WABIIWWAN</h2>
-                <p>• Eebbisaa Baayisaa(2022), "Gatiin Namaa meeqa"?. Daystar printing and trading<br>
-                • Miratuu Shaanqoo, "Garbummaa Birmadummaa fakkaattu", maxxansa 4ffaa, 2020, nachsar printing press <br>
-                • Kelly-Plate, J. Eubanks, E. (2010). "Applying Life skills". New York: The McGraw-Hill Companies, Inc.<br>
-                • Lammeessaa Jammaraa, "IFAAJEE", 2021. Finfinnee Oromiyaa,<br>
-                • Bailin, Sh.(1987). "Critical and Creative Thinking". Vol. IX.1, Winter.<br>
-                • Eebbisaa Baayisaa Abeetuu, "Miiltoo", Gulaala 8ffaa, Nachsar printing, Finfinnee, Oromiyaa, 2020<br>
-                • Kagan, S. (2004). Macmillan Life Skills.www.macmillanenglish.com/life-skills.<br>
-                • Shiv Khera, "YOU CAN WIN". Published by Rajive Beri for Maximilian India Ltd, 2/10 anson Road, Daryagani, NewDelhi 11002, c1998, 2002<br>
-                • Hinseenee Makuriyaa, "Gonfoo Mo'ichaa"<br>
-                • Miratuu Shaanqoo, "Siif Galeeraa?"<br>
-                </p>` 
-            }, // Comma kun dirqama
-        ];
+             { title: "Wabiiwwan", content: `<h2>WABIIWWAN</h2>
+
+            <p>•	Eebbisaa Baayisaa(2022), "Gatiin Namaa meeqa"?. 
+
+       Daystar printing and trading<br>
+
+•	Miratuu Shaanqoo, "Garbummaa Birmadummaa  
+
+       fakkaattu", maxxansa 4ffaa, 2020, nachsar printing  
+
+        press <br>
+
+•	Kelly-Plate, J. Eubanks, E. (2010). "Applying Life skills".  
+
+        New York: The McGraw-Hill Companies, Inc.<br>
+
+•	Lammeessaa Jammaraa, "IFAAJEE", 2021. Finfinnee 
+
+Oromiyaa,<br>
+
+•	Bailin, Sh.(1987). "Critical and Creative Thinking". Vol. IX.1, 
+
+         Winter.<br>
+
+•	Eebbisaa Baayisaa Abeetuu, "Miiltoo", Gulaala 8ffaa, 
+
+         Nachsar printing, Finfinnee, Oromiyaa, 2020<br>
+
+•	Kagan, S. (2004). Macmillan Life 
+
+         Skills.www.macmillanenglish.com/life-skills.<br>
+
+•	Shiv Khera, "YOU CAN WIN". Published by Rajive Beri for 
+
+         Maximilan India Ltd, 2/10 anson Road, Daryagani,  
+
+                     NewDelhi 11002, c1998, 2002<br>
+
+•	Hinseenee Makuriyaa, "Gonfoo Mo'ichaa"<br>
+
+•	Miratuu Shaanqoo, "Siif Galeeraa?"<br>
+
+</p>` }
+		];
 
         let current = 0;
+
         const main = document.getElementById('main-container');
+
         const menu = document.getElementById('menu-list');
 
+
+
         function init() {
+
             bookPages.forEach((p, i) => {
+
                 const li = document.createElement('li');
+
                 li.innerText = p.title;
+
                 li.onclick = () => goTo(i);
+
                 menu.appendChild(li);
 
+
+
                 const sec = document.createElement('section');
+
                 sec.id = `s${i}`;
+
                 sec.innerHTML = p.content;
                 if(i === 0) sec.classList.add('active');
                 main.appendChild(sec);
@@ -752,58 +793,79 @@ Waan kutannoo isaaniin  hojjetanii itti milkaa'aauus dandaa'aniiru.</p>
         }
 
         function toggleMenu() {
+
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
         }
 
         function goTo(idx) {
+
             document.getElementById(`s${current}`).classList.remove('active');
+
             current = idx;
+
             document.getElementById(`s${current}`).classList.add('active');
+
             document.getElementById('header-label').innerText = bookPages[current].title.toUpperCase();
+
             if(document.getElementById('sidebar').classList.contains('active')) toggleMenu();
+
             document.getElementById('scroll-box').scrollTop = 0;
+
         }
 
         function change(step) {
+
             let next = current + step;
+
             if (next >= 0 && next < bookPages.length) goTo(next);
         }
 
+        // PWA Install Logic
+
         let deferredPrompt;
+
         window.addEventListener('beforeinstallprompt', (e) => {
+
             e.preventDefault();
+
             deferredPrompt = e;
+
             document.getElementById('installBanner').style.display = 'block';
+
         });
 
         async function installApp() {
+
             if (deferredPrompt) {
+
                 deferredPrompt.prompt();
+
                 deferredPrompt = null;
+
                 document.getElementById('installBanner').style.display = 'none';
             }
         }
-
         init();
 
-        if ('serviceWorker' in navigator) {
-            const swCode = `
-                const cacheName = 'karaa-karraa-v12'; // Lakkoofsa kana v12 godheera
-                const assets = ['./', './index.html', './manifest.json', './icon.png', './author.jpg'];
-
-                self.addEventListener('install', (e) => {
-                    e.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(assets)));
-                });
-
-                self.addEventListener('fetch', (e) => {
-                    e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
-                });
-            `;
-            const blob = new Blob([swCode], { type: 'application/javascript' });
-            navigator.serviceWorker.register(URL.createObjectURL(blob));
-        }
-
+        // Service Worker galmeessuuf (Install akka ta'uuf dirqama)
+if ('serviceWorker' in navigator) {
+    const swCode = `
+        const cacheName = 'karaa-karraa-v2';
+       const assets = ['./', './index.html', './manifest.json', './icon.png', './author.jpg'];
+        self.addEventListener('install', (e) => {
+          e.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(assets)));
+        });
+        self.addEventListener('fetch', (e) => {
+            e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
+        });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob));
+}
+    </script>
+</body>
+</html>
 
 
 
