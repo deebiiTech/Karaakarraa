@@ -715,30 +715,23 @@ Waan kutannoo isaaniin  hojjetanii itti milkaa'aauus dandaa'aniiru.</p>
 	7. Namni kaayyoo malee deemuuf qilleensi tokkumadha.<br>
 	8. Dhiibbaan namoota injifachuuf taphatan cimoo taasisa. Warra akka hin injifatamneef taphatan immoo anniisaa duraa fixa.</p></h3><br>
 
-</p>` },
-            { title: "Wabiiwwan", content: `<h2>WABIIWWAN</h2>
-            <p>•	Eebbisaa Baayisaa(2022), "Gatiin Namaa meeqa"?. 
-       Daystar printing and trading<br>
-•	Miratuu Shaanqoo, "Garbummaa Birmadummaa  
-       fakkaattu", maxxansa 4ffaa, 2020, nachsar printing  
-        press <br>
-•	Kelly-Plate, J. Eubanks, E. (2010). "Applying Life skills".  
-        New York: The McGraw-Hill Companies, Inc.<br>
-•	Lammeessaa Jammaraa, "IFAAJEE", 2021. Finfinnee 
-Oromiyaa,<br>
-•	Bailin, Sh.(1987). "Critical and Creative Thinking". Vol. IX.1, 
-         Winter.<br>
-•	Eebbisaa Baayisaa Abeetuu, "Miiltoo", Gulaala 8ffaa, 
-         Nachsar printing, Finfinnee, Oromiyaa, 2020<br>
-•	Kagan, S. (2004). Macmillan Life 
-         Skills.www.macmillanenglish.com/life-skills.<br>
-•	Shiv Khera, "YOU CAN WIN". Published by Rajive Beri for 
-         Maximilan India Ltd, 2/10 anson Road, Daryagani,  
-                     NewDelhi 11002, c1998, 2002<br>
-•	Hinseenee Makuriyaa, "Gonfoo Mo'ichaa"<br>
-•	Miratuu Shaanqoo, "Siif Galeeraa?"<br>
-</p>` }
-			{
+const bookPages = [
+            { 
+                title: "Wabiiwwan", 
+                content: `<h2>WABIIWWAN</h2>
+                <p>• Eebbisaa Baayisaa(2022), "Gatiin Namaa meeqa"?. Daystar printing and trading<br>
+                • Miratuu Shaanqoo, "Garbummaa Birmadummaa fakkaattu", maxxansa 4ffaa, 2020, nachsar printing press <br>
+                • Kelly-Plate, J. Eubanks, E. (2010). "Applying Life skills". New York: The McGraw-Hill Companies, Inc.<br>
+                • Lammeessaa Jammaraa, "IFAAJEE", 2021. Finfinnee Oromiyaa,<br>
+                • Bailin, Sh.(1987). "Critical and Creative Thinking". Vol. IX.1, Winter.<br>
+                • Eebbisaa Baayisaa Abeetuu, "Miiltoo", Gulaala 8ffaa, Nachsar printing, Finfinnee, Oromiyaa, 2020<br>
+                • Kagan, S. (2004). Macmillan Life Skills.www.macmillanenglish.com/life-skills.<br>
+                • Shiv Khera, "YOU CAN WIN". Published by Rajive Beri for Maximilian India Ltd, 2/10 anson Road, Daryagani, NewDelhi 11002, c1998, 2002<br>
+                • Hinseenee Makuriyaa, "Gonfoo Mo'ichaa"<br>
+                • Miratuu Shaanqoo, "Siif Galeeraa?"<br>
+                </p>` 
+            }, // Comma kun dirqama
+            {
                 title: "WAA'EE BARREESSAA",
                 content: `
                     <div style="text-align:center;">
@@ -752,7 +745,10 @@ Oromiyaa,<br>
                     <p>Odeeffannoo dabalataaf:</p> 
                     <p><b>0910166955 | 0942420578</b></p>
                     <h3 style="text-align:center; color:#4B1F01;">Horaa Bulaa Deebanaa!</h3>
-                `} ];
+                `
+            }
+        ];
+
         let current = 0;
         const main = document.getElementById('main-container');
         const menu = document.getElementById('menu-list');
@@ -791,7 +787,6 @@ Oromiyaa,<br>
             if (next >= 0 && next < bookPages.length) goTo(next);
         }
 
-        // PWA Install Logic
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -808,28 +803,24 @@ Oromiyaa,<br>
         }
 
         init();
-        // Service Worker galmeessuuf (Install akka ta'uuf dirqama)
-if ('serviceWorker' in navigator) {
-    const swCode = `
-        const cacheName = 'karaa-karraa-v2';
-       const assets = ['./', './index.html', './manifest.json', './icon.png', './author.jpg'];
 
-        self.addEventListener('install', (e) => {
-            e.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(assets)));
-        });
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const cacheName = 'karaa-karraa-v12'; // Lakkoofsa kana v12 godheera
+                const assets = ['./', './index.html', './manifest.json', './icon.png', './author.jpg'];
 
-        self.addEventListener('fetch', (e) => {
-            e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
-        });
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(blob));
-}
-    </script>
-    
-</body>
+                self.addEventListener('install', (e) => {
+                    e.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(assets)));
+                });
 
-</html>
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+        }
+
 
 
 
