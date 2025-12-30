@@ -796,29 +796,43 @@ Oromiyaa,<br>
 
         init();
         // Service Worker galmeessuuf (Install akka ta'uuf dirqama)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('data:text/javascript;base64,' + btoa('self.addEventListener("fetch", (event) => {});'));
-    const swCode = `
-        const cacheName = 'karaa-karraa-v2';
-        const assets = ['./', './index.html', './manifest.json', './icon.png'];
+// Service Worker Offline akka hojjetuuf (Bakka kana qofa sirreessi)
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const cacheName = 'karaa-karraa-v50';
+                const assets = [
+                    './',
+                    './index.html',
+                    './manifest.json',
+                    './icon.png'
+                ];
 
-        self.addEventListener('install', (e) => {
-            e.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(assets)));
-        });
+                self.addEventListener('install', (e) => {
+                    e.waitUntil(
+                        caches.open(cacheName).then((cache) => {
+                            return cache.addAll(assets);
+                        })
+                    );
+                });
 
-        self.addEventListener('fetch', (e) => {
-            e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
-        });
-    `;
-    const blob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(blob));
-}
+                self.addEventListener('fetch', (e) => {
+                    e.respondWith(
+                        caches.match(e.request).then((res) => {
+                            return res || fetch(e.request);
+                        })
+                    );
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+        }
     </script>
 
 </body>
 </html>
 
 </html>
+
 
 
 
