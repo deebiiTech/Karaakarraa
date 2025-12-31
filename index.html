@@ -798,7 +798,7 @@ Oromiyaa,<br>
 if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 const swCode = `
-                    const cacheName = 'karaa-karraa-final-v1';
+                    const cacheName = 'karaa-karraa-vFINAL';
                     const assets = [
                         './',
                         './index.html',
@@ -807,7 +807,7 @@ if ('serviceWorker' in navigator) {
                     ];
 
                     self.addEventListener('install', (e) => {
-                        self.skipWaiting(); // Hatattamaan akka hojjetu taasisa
+                        self.skipWaiting();
                         e.waitUntil(
                             caches.open(cacheName).then((cache) => cache.addAll(assets))
                         );
@@ -837,6 +837,7 @@ if ('serviceWorker' in navigator) {
     
 </body>
 </html>
+
 
 
 
