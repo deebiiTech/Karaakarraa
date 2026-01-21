@@ -11,7 +11,12 @@
     <link rel="manifest" href="manifest.json">
 
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    
+    <link rel="manifest" href="manifest.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Karaakarraa">
+<link rel="apple-touch-icon" href="icon.png">
     <style>
         :root {
             --primary-bg: #4B1F01; --sidebar-bg: #2D1301;
@@ -806,10 +811,17 @@ Oromiyaa,<br>
       .catch((err) => console.log("SW Registration Failed", err));
   });
 }
+		<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log("Karaakarraa Service Worker Registered"));
+  }
+</script>
     </script>
     
 </body>
 </html>
+
 
 
 
